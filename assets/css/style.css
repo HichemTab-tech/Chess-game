@@ -1,0 +1,276 @@
+:root{
+    --groundBorder: 5px;
+    --groundDim: calc(496px + 2*var(--groundBorder));
+    --cellDim: calc((var(--groundDim) - 2*var(--groundBorder)) / 8);
+    --groundParentDim: 550px;
+    --groundMargin: calc((var(--groundParentDim) - var(--groundDim))/2);
+}
+body {
+    /*background: url("../img/bg.jpg") center center;*/
+    background: linear-gradient(45deg, #222, #333);
+}
+#ground-parent {
+    width: var(--groundParentDim);
+    height: var(--groundParentDim);
+    background: url("../img/wall.png") center center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border: 3px solid rgb(103 40 09);
+    border-radius: 10px;
+}
+
+#ground, #soldiers_area {
+    width: var(--groundDim);
+    height: var(--groundDim);
+    margin-top: var(--groundMargin);
+    margin-left: var(--groundMargin);
+    border: 5px solid transparent;
+    position: absolute;
+    top: 0;
+}
+
+#ground .one-row {
+    display: flex;
+    flex-flow: row;
+}
+
+#ground .one-row:nth-child(odd) {
+    /*flex-flow: row-reverse;*/
+}
+
+
+#ground .one-row .one-cell-bg {
+    width: 100%;
+    height: 100%;
+}
+
+#ground .one-row .one-cell, .one-piece {
+    width: var(--cellDim);
+    height: var(--cellDim);
+}
+
+#ground .one-row .one-cell.cell0 {
+    background: url("../img/bg0.jpg");
+}
+
+#ground .one-row .one-cell.cell1 {
+    background: url("../img/bg1.jpg");
+}
+
+#ground-parent .cords {
+    display: flex;
+    position: absolute;
+    margin: auto;
+    justify-content: space-around;
+    align-content: center;
+    text-align: center;
+    top: 0;
+    left: 0;
+    color: white;
+    text-shadow: 1px 1px 2px #555;
+    font-weight: bold;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#ground-parent .cord-column1 {
+    width: calc(100% - 2*var(--groundMargin));
+    height: var(--groundMargin);
+    flex-flow: row;
+    right: 0;
+}
+
+#ground-parent .cord-row1 {
+    width: var(--groundMargin);
+    height: calc(100% - 2*var(--groundMargin));
+    flex-flow: column;
+    bottom: 0;
+}
+
+.piece-img-parent{
+    width: 95%;
+    height: 95%;
+    margin: 2.5%;
+    text-align: center;
+}
+
+.piece-img-parent img{
+    max-width: 100%;
+    max-height: 90%;
+}
+
+#soldiers_area {
+    position: relative;
+    background: none;
+    pointer-events: none;
+}
+#soldiers_area *{
+    pointer-events: auto;
+}
+
+.one-piece {
+    position: absolute;
+    transition: background-color 0.1s, top 1s, left 1s;
+}
+
+.one-piece.canHover {
+    cursor: pointer;
+}
+
+.one-piece.canHover:not(.selected):hover {
+    cursor: pointer;
+    background-color: rgb(100, 255, 255, 0.3);
+    transition: background-color 0.1s;
+}
+
+.one-piece.selected {
+    background-color: rgb(100, 255, 255, 0.6);
+}
+
+.one-piece.kingInDanger{
+    animation-name: glowing;
+    animation-delay: 1s;
+    animation-duration: 0.5s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate-reverse;
+}
+
+.one-piece.kingInDanger.kingIsDead{
+    animation: none!important;
+    background-color: red;
+    box-shadow: 0 0 20px red;
+}
+
+@keyframes glowing {
+    from {background-color: transparent;box-shadow: none;}
+    to {background-color: orangered;box-shadow: 0 0 15px red;}
+}
+
+.one-cell.possibleToMoveTo, .one-cell.possibleToMoveToAndEat, .one-cell.possibleToMoveByCastling {
+    cursor: pointer;
+}
+
+.one-cell.possibleToMoveTo .one-cell-bg {
+    cursor: pointer;
+    background-color: rgb(0, 123, 255, 0.5);
+    transition: background-color 0.1s;
+}
+
+.one-cell.possibleToMoveToAndEat .one-cell-bg {
+    cursor: pointer;
+    background-color: rgb(40, 167, 69, 0.8);
+    transition: background-color 0.1s;
+}
+
+.one-cell.possibleToMoveByCastling .one-cell-bg {
+    cursor: pointer;
+    background-color: rgb(111, 66, 193, 0.8);
+    transition: background-color 0.1s;
+}
+
+.one-cell.possibleToMoveTo:hover .one-cell-bg {
+    background-color: var(--success);
+}
+
+.one-cell.possibleToMoveToAndEat:hover .one-cell-bg {
+    background-color: var(--danger);
+}
+
+.one-cell.possibleToMoveByCastling:hover .one-cell-bg {
+    background-color: var(--purple);
+}
+
+.iconsGoogle{
+    vertical-align: -6px;
+    padding-right: 5px;
+}
+
+.custom_modals .modal-content{
+    background: url(../img/bg2.png) center center repeat;
+    background-size: 300px;
+}
+
+.custom_modals .modal-header{
+    background: linear-gradient(45deg, rgb(186 118 81), rgb(197, 112, 66));
+    background-size: 5px;
+}
+
+.custom_modals .modal-body{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.custom_modals .modal-body .logo_chess{
+    width: 300px;
+}
+
+.custom_modals .modal-body .btn{
+    margin: 30px 0;
+    background: url(../img/bg3.jpg);
+    color: white;
+    font-family: monospace;
+
+    border-radius: 20px;
+    background-size: cover;
+    text-shadow: 0 1px 0 #999, 0 2px 0 #888, 0 1.5px 0 #777, 0 2px 0 #666, 0 2.5px 0 #555, 0 3px 0 #444, 0 3.5px 0 #333, 0 4px 3.5px #001135;
+    padding: 8px 50px 12px 50px;
+    font-size: 25px;
+    box-shadow: 1px 1px 3px #222222;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: 0.1s box-shadow, 0.6s padding-left, 0.6s width;
+}
+
+.custom_modals .modal-body .btn:hover{
+
+}
+
+.extra-pieces-list{
+    display: flex;
+    width: 80%;
+    max-width: 500px;
+    min-width: 400px;
+    justify-content: space-between;
+    align-items: center;
+    margin: 50px 0;
+}
+
+.extra-pieces-list .one-piece-inlist{
+    height: 100px;
+    position: relative;
+    width: 80px;
+    padding: 10px;
+    background: url(../img/bg1.jpg) center center repeat;
+    background-size: cover;
+    border-radius: 10px;
+}
+
+.extra-pieces-list .one-piece-inlist .piece-img-parent{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    cursor: pointer;
+    transition: 0.1s;
+    width: 80%;
+    height: 80%;
+    margin: 10%;
+}
+
+.extra-pieces-list .one-piece-inlist:hover .piece-img-parent{
+    bottom: 5px;
+    transition: 0.1s;
+}
+
+.flash {
+    animation: flash 2s;
+}
+
+@keyframes flash {
+    from{background-color: yellow;}
+    to{background-color: transparent;}
+}
