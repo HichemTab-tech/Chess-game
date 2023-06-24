@@ -1,3 +1,4 @@
+// noinspection JSUnusedGlobalSymbols
 class Soldier {
     static SOLDIERS = {
         SIMPLE_A:"0",
@@ -798,7 +799,7 @@ class Soldier {
         this.position = initialPos_;
         let top = cellHeight*(Game.rowsKeys.indexOf(initialPos_.row));
         let left = cellWidth*(Game.columnsKeys.indexOf(initialPos_.column));
-        const ele = $('<div class="one-piece" data-player-id="'+this.playerId+'" data-object-unique-id="'+this.uniqueId+'" style="top: '+top+'px;left: '+left+'px;"><div class="piece-img-parent"><img src="'+src+'" class="soldier-img"></div></div>');
+        const ele = $('<div class="one-piece" data-player-id="'+this.playerId+'" data-object-unique-id="'+this.uniqueId+'" style="top: '+top+'px;left: '+left+'px;"><div class="piece-img-parent"><img src="'+src+'" class="soldier-img" alt="'+src+'"></div></div>');
         ele.appendTo($('#soldiers_area'));
         return ele;
     }
@@ -901,8 +902,9 @@ class Soldier {
 
     setOnClick(job) {
         let obj = this;
-        $('[data-object-unique-id="'+this.uniqueId+'"]').off('click');
-        $('[data-object-unique-id="'+this.uniqueId+'"]').on('click', function () {
+        let objUniqueId = $('[data-object-unique-id="'+this.uniqueId+'"]');
+        objUniqueId.off('click');
+        objUniqueId.on('click', function () {
             job(obj);
         });
     }

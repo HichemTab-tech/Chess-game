@@ -8,3 +8,7 @@ function generateUniqueId() {
     }
     return result;
 }
+
+function isNotNull(variable) {
+    return typeof variable !== 'undefined' && variable !== null;
+}
